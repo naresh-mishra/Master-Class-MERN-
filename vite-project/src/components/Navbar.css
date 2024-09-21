@@ -1,0 +1,14 @@
+.container{
+    max-width:140rem;
+    padding:3.2rem 1.4rem;
+    display:flex;
+    justify-content:space-evenly;
+}
+ul{
+    display:flex;
+    gap:3.2rem;
+}
+.logo-brand{
+    font-size:3.1rem;
+    font-weight:600px;
+  }
