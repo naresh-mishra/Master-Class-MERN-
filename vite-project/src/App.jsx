@@ -13,6 +13,7 @@
   import { AdminUsers } from "./pages/Admin-Users";
   import { AdminContacts } from "./pages/Admin-Contacts";
   import {AdminUpdate} from "./pages/Admin_update";
+  import Payment_sucess from "./pages/Payment_sucess";
 //browser router help us to navigate through different page by diff url to diff page 
   const App=()=>{
   return (
@@ -28,6 +29,7 @@
                       <Route path="/register" element={<Register/>}/>
                       <Route path="/logout" element={<Logout/>}/>
                       <Route path="*" element={<Error/>}/>
+                      <Route path="/paymentsuccess" element={<Payment_sucess/>}/>
                       {/* mern nested routes for admin --by using outlet in admin page*/}
                       <Route path="/admin" element={<AdminLayout/>}>
                           <Route path="users" element={<AdminUsers/>}/>

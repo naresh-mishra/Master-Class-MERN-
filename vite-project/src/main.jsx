@@ -7,8 +7,9 @@ import {ToastContainer} from 'react-toastify';//so that toast popup use by every
 import "react-toastify/dist/ReactToastify.css";//css added to toastify for better look
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthProvider>
+  
   <React.StrictMode>
+  <AuthProvider>
     <App />
    <ToastContainer
    position="top-right"
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    theme="light"
    bodyClassName="toastBody"/>
 
-  </React.StrictMode>
   </AuthProvider>
+  </React.StrictMode>
+ 
 )

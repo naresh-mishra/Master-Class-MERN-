@@ -19,6 +19,7 @@ router.route("/").post(authcontrollers.home);
 router.route("/register").post(validate(signupSchema),authcontrollers.register);
 // router.route("/login").post(authcontrollers.login);
 router.route("/login").post(validate(loginUpSchema),authcontrollers.login);
-router.route("/user").get(authMiddleware,authcontrollers.user);//authmiddleware give current user data
+router.route("/user").get(authMiddleware,authcontrollers.user);
+//authmiddleware give current user data
 
 module.exports=router;

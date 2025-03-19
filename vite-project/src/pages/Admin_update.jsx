@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";//for fetching id from url
 import {toast} from 'react-toastify';
 
 export const AdminUpdate = () => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const params=useParams();
     const {authorizationToken}= useAuth();
 
@@ -16,7 +17,7 @@ export const AdminUpdate = () => {
     const getUserData=async(req,res)=>{
         try{
             //this params.id we got by admin-user.jsx where we have define link
-            const response=await fetch(`http://localhost:5000/api/admin/users/${params.id}`,{
+            const response=await fetch(`${API_BASE_URL}/api/admin/users/${params.id}`,{
                 method:"GET",
                 headers:{
                      Authorization:authorizationToken,//token from local storage
@@ -47,7 +48,7 @@ export const AdminUpdate = () => {
     const handleSubmit=async(e)=>{
      e.preventDefault();
          try{
-            const response=await fetch(`http://localhost:5000/api/admin/users/update/${params.id}`,
+            const response=await fetch(`${API_BASE_URL}/api/admin/users/update/${params.id}`,
                 {
                   method:"PATCH",
                   headers:{

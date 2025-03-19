@@ -2,13 +2,14 @@ import { useEffect,useState } from "react";
 import { useAuth } from "../store/auth";
 
 export const AdminContacts=()=>{
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const [user,setUser]=useState([]);
     const {authorizationToken}=useAuth();
 
     const getAllUserData=async()=>{
         try{
             // using get so we dosent need to pass body
-            const response=await fetch("http://localhost:5000/api/admin/contacts",{
+            const response=await fetch(`${API_BASE_URL}/api/admin/contacts`,{
                 method:"GET",
                 headers:{
                     Authorization:authorizationToken,
@@ -23,7 +24,7 @@ export const AdminContacts=()=>{
     }
     const deleteUser=async(id)=>{
       try{
-        const response=await fetch(`http://localhost:5000/api/admin/contacts/delete/${id}`,{
+        const response=await fetch(`${API_BASE_URL}/api/admin/contacts/delete/${id}`,{
             method:"DELETE",
             headers:{
                 Authorization:authorizationToken,
@@ -47,26 +48,26 @@ export const AdminContacts=()=>{
                 <h1>Contact user data</h1>
             </div>
          <div className="container admin-users">
-          <table style={{ width : 1000}}>
+          <table >
             <thead >
                 <tr>
-                    <th style={{ width : 250}}>Name</th>
-                    <th style={{ width : 250}}>Email</th>
-                    <th style={{ width : 250}}>Message</th>
-                    <th style={{ width : 250}}>Delete</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
             {
              user.map((curUser,index)=>{
               return(
-                <tr key={index} style={{ width : 1000}} >
-                    <td style={{ width : 200}}>{curUser.username}</td>
-                    <td style={{ width : 200}}>{curUser.email}</td>
-                    <td style={{ width : 200}}> 
+                <tr key={index}  >
+                    <td>{curUser.username}</td>
+                    <td>{curUser.email}</td>
+                    <td> 
                         {curUser.message}
                     </td>  
-                    <td style={{ width : 200}}><button onClick={()=>deleteUser(curUser._id)}>Delete</button></td>
+                    <td><button onClick={()=>deleteUser(curUser._id)}>Delete</button></td>
                 </tr>
               )
               

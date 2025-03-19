@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {useAuth} from "../store/auth";
 
 export const About=()=>{
@@ -8,18 +8,24 @@ const [name,setName]=useState("");
 const [wel,setWel]=useState("");
 const [userData,setUserData]=useState(true);
 
-if(user && userData ){
-    setName(user.username);
-    setWel("Welcome");
-    setUserData(false);
-}
+
+useEffect(() => {
+    if ( user) {
+      setName(user.username);
+      setWel("Welcome");
+    } 
+    else if ( !user) { // Clear name on logout
+        setName("");
+        setWel("");}
+  }, [ user]); // Re-run when  `user` changes
+
     return (
         <>
         <section className="section-hero">
                 <div className="container grid grid-two-cols">
                     <div className="hero-content">
                        
-                         <p>{wel} {name}</p> 
+                    <p>{`${wel} ${name}`}</p>
                         <h1>Why Choose Us?</h1>
                         <p>
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur excepturi, ut exercitationem architecto dolorem fugit saepe atque, deleniti illum, obcaecati ipsa! Nobis beatae molestiae facilis! Aut enim ex mollitia ducimus eius eligendi, quis nulla ullam quasi. Corrupti illo velit ad dignissimos, blanditiis minus ut nobis dolorem assumenda placeat. Voluptatem rem neque asperiores, deleniti iure aliquid, veniam earum, temporibus nihil maiores dignissimos quos possimus similique voluptatibus? Maiores aliquam, provident iste quaerat reprehenderit voluptatibus dolore esse voluptas earum repudiandae amet omnis. Dolorem nisi, consequatur commodi minus dolore consectetur ipsa quasi velit aut tempora perspiciatis illum amet animi nam ad optio. Animi, aperiam?

@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useAuth } from '../store/auth';
 import { FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaMessage } from "react-icons/fa6";
 
+
 export const Contact = () => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const [contact, setContact] = useState({
         username: "",
         email: "",
@@ -12,14 +14,17 @@ export const Contact = () => {
     });
     const [userData,setUserData]=useState(true);
     const {user} =useAuth();
-    if(userData && user){
+    
+    useEffect(() => {
+    if( userData && user){
         setContact({
             username:user.username,
             email:user.email,
             message:"",
         });
        setUserData(false); 
-    }
+    }}, [user]);
+
     const handleInput = (e) => {
         console.log(e);
         let name = e.target.name;
@@ -32,7 +37,7 @@ export const Contact = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try{
-           const response=await fetch(`http://localhost:5000/api/form/contact`,{
+           const response=await fetch(`${API_BASE_URL}/api/form/contact`,{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
@@ -64,11 +69,11 @@ export const Contact = () => {
 
                         <h1 className="main-heading mb-3 contact">Contact form</h1>
                         <div className="container grid grid-two-cols">
-                            <div className="contact_image">
+                            <div className="hero-image">
                                 <img src="../public/services.png"
                                     alt="lets fill the contact  page"
-                                    width="500"
-                                    height="500"
+                                    width="400"
+                                    height="400"
                                 />
                             </div>
                             <div className="login-form">
@@ -130,14 +135,14 @@ export const Contact = () => {
                     </div>
                 </main>
                 <section className="mb-3">
+                    {/* google map->search->haldwani->embedded->copy-paste */}
                 <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13929.36340000403!2d79.50785980282726!3d29.21352715563625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a09addbd0c86d1%3A0x6793e360cb3d930f!2sHaldwani%2C%20Uttarakhand%20263139!5e0!3m2!1sen!2sin!4v1713796265301!5m2!1sen!2sin" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13929.36340000403!2d79.50785980282726!3d29.21352715563625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a09addbd0c86d1%3A0x6793e360cb3d930f!2sHaldwani%2C%20Uttarakhand%20263139!5e0!3m2!1sen!2sin!4v1713796265301!5m2!1sen!2sin" 
                     width="100%"
                     height="450"
                     allowFullScreen
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade">
-
                     </iframe>
                     </section>
             </section>

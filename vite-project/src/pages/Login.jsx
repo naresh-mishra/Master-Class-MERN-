@@ -4,12 +4,17 @@ import {useAuth} from "../store/auth";
 import {toast} from "react-toastify";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { Eye, EyeOff } from "lucide-react"; //passowrd one 
 
 export const Login = () => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const [user, setUser] = useState({
         email: "",
         password: "",
     });
+    // password
+    const [showPassword, setShowPassword] = useState(false);
+
     const navigate = useNavigate();//--
     const {storeTokenInLs}=useAuth();//--
 
@@ -27,7 +32,7 @@ export const Login = () => {
         e.preventDefault();
         console.log(user);
         try {
-            const response = await fetch(`http://localhost:5000/api/auth/login`, {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -64,11 +69,11 @@ export const Login = () => {
                     <div className="section-registration">
 
                         <div className="container grid grid-two-cols">
-                            <div className="registration_image">
+                            <div className="hero-image">
                                 <img src="../public/services.png"
                                     alt="lets fill the login page"
-                                    width="500"
-                                    height="500"
+                                    width="400"
+                                    height="400"
                                 />
                             </div>
                             <div className="registration-form">
@@ -95,7 +100,7 @@ export const Login = () => {
                                         {/* <label htmlFor="password">Password</label> */}
                                         <RiLockPasswordFill style={style}/>
                                         <input
-                                            type="password"
+                                            type={showPassword ? "text" : "password"}
                                             name="password"
                                             placeholder="password"
                                             id="password"
@@ -104,6 +109,14 @@ export const Login = () => {
                                             value={user.password}
                                             onChange={handleInput}
                                         />
+                                        <button
+                                      type="button"
+                                    //   style={{width: "50px",height: "30px",}}
+                                      className="absolute right-3 top-1/2 transform -translate-y-1/2 eye"
+                                      onClick={() => setShowPassword(!showPassword)}
+                                  >
+                                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                 </button>
                                     </div>
                                     <br />
                                     <button type="submit" className="btn btn-submit">Login Now</button>

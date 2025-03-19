@@ -10,6 +10,9 @@ export const AuthProvider=({children})=>{
     const [isLoading,setIsLoading]=useState(true);
     const [services,setServices]=useState([]);
     const authorizationToken=`Bearer ${token}`;
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    
+    // console.log("Backend URL:", API_BASE_URL);
 
     const storeTokenInLs=(serverToken)=>{
         setToken(serverToken);
@@ -21,13 +24,14 @@ export const AuthProvider=({children})=>{
     
     const LogoutUser=()=>{
         setToken("");
+        setUser("");
         return localStorage.removeItem("token");
     };
     //JWt authentication-to get the currently logged in user data
     const userAuthentication=async()=>{
         try{
             setIsLoading(true);
-            const response=await fetch("http://localhost:5000/api/auth/user",{
+            const response=await fetch(`${API_BASE_URL}/api/auth/user`,{
                 method:"GET",
                 headers:{
                     Authorization:authorizationToken,//token from local storage
@@ -49,7 +53,7 @@ export const AuthProvider=({children})=>{
     }
     const getServices=async()=>{
         try{
-          const response=await fetch("http://localhost:5000/api/data/service",{
+          const response=await fetch(`${API_BASE_URL}/api/data/service`,{
              method:"GET",
           });
           if(response.ok){
@@ -61,10 +65,18 @@ export const AuthProvider=({children})=>{
             console.log(`services frontend err:${err}`);
         }
     };
-    useEffect(()=>{//run code once whenever start 
-        userAuthentication();
+    // useEffect(()=>{//run code once whenever start 
+    //     userAuthentication();
+        
+    //     },[]);
+    
+    useEffect(()=>{
+        if(token)
+        {
+            userAuthentication();  
+        }
         getServices();
-        },[]);
+        },[token])
 
     return (
     <AuthContext.Provider value={{isLoggedIn,storeTokenInLs,LogoutUser,user,services,authorizationToken,isLoading}}>

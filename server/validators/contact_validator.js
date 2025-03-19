@@ -11,7 +11,7 @@ const contactformSchema=z.object({
     .max(255,{message:"Email must not be more than 255 characters"}),
    message:z
     .string({required_error:"message is required"})
-    .min(7,{message:"message must be atleast of 6 characters"})
-    .max(1024,"message must not be more than 255 characters"),
+    .min(7,{message:"message must be atleast of 7 characters"})
+    .max(1024,"message must not be more than 1024 characters"),
 });
 module.exports=contactformSchema;
